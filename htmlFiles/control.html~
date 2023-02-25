@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>управление</title>
+</head>
+<body>
+
+<table style="border-collapse: collapse; width: 100%;" border="1" align = "center"> 
+	<tr style="height: 50px;" align = "center">
+		<td colspan="4" ></td>
+	</tr>
+	<tr>
+		<td style="width: 25%;" align = "center"> 
+			<form action="startwork" method="post">
+				<input type="submit" name="start" value="Start Work" />
+			</form> 
+		</td>	
+		<td style="width: 25%;" align = "center"> 
+			<form action="stopwork" method="post">
+				<input type="submit" name="stop" value="Stop Work" />
+			</form> 
+		</td>	
+		<td style="width: 25%;" align = "center">  
+			<form action="startvideo" method="post">
+				<input type="number" step="1" name="count" value="5" />
+				<input type="submit" name="startvideo" value="Start Video" />
+			</form>
+		</td>
+		<td style="width: 25%;" align = "center">  
+			<form action="startpcap" method="post">
+				<input type="number" step="100" name="count" value="5000" />
+				<input type="submit" name="startpcap" value="Start Pcap Save" />
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="height: 50px;" />	
+	</tr>
+</table>
+
+</body>
+</html>
