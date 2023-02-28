@@ -1,6 +1,8 @@
 using Microsoft.Data.Sqlite;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using System.Runtime.InteropServices;
+using System.Net;
 
 // добавить checkBox igmp
 
@@ -8,15 +10,34 @@ namespace statServer
 {
 	class progamm
 	{
+		static string hostt = "http://192.168.0.112:8000";
 		static DataBase? data;
 		static RequestActions? req;
-		static void Main(string[] args)
+		static void Main(string[] args)		
 		{
+
+			var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    System.Console.WriteLine(ip.ToString());
+					if ( ip.ToString() != "127.0.0.1") hostt = "http://" + ip.ToString() + ":8080";
+                }
+            }
+
+			
+				[DllImport("/home/drey/test/sock/socCpp1_lib/libigmpwork.so", CharSet = CharSet.Auto)]
+				static extern int  istartWork();
+				[DllImport("/home/drey/test/sock/socCpp1_lib/libigmpwork.so", CharSet = CharSet.Auto)]
+				static extern int  istopWork();
+
 			data = new DataBase("dataBase.db2");
 			req = new RequestActions();		
 
-			var builder = WebApplication.CreateBuilder(args);
 			
+
+			var builder = WebApplication.CreateBuilder(args);
 			var app = builder.Build();
 
 			app.Run(async (context) =>
@@ -75,7 +96,17 @@ namespace statServer
 
 
     			}
-    			else if (context.Request.Path == "/ctrl")
+    			else if (context.Request.Path == "/startwork")
+				{
+					istartWork();
+					await context.Response.SendFileAsync("htmlFiles/control.html");
+				}
+				else if (context.Request.Path == "/stopwork")
+				{
+					istopWork();
+					await context.Response.SendFileAsync("htmlFiles/control.html");
+				}
+				else if (context.Request.Path == "/ctrl")
 				{
 					await context.Response.SendFileAsync("htmlFiles/control.html");
 				}
@@ -94,7 +125,7 @@ namespace statServer
 				
 			});
 				app.MapGet("/2", () => "Hello mazafaka!");
-				app.Run();
+				app.Run(hostt);
 		}
 	}
 }
