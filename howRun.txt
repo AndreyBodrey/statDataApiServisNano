@@ -1,6 +1,0 @@
-example
-
-$ /statDataApiServis/bin/Debug/net6.0/publish ./statDataApiServis --urls "http://192.168.0.146:8000;https://192.168.0.146:8001"
-
-# /statDataApiServis dotnet run 
-

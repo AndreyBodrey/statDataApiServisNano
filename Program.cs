@@ -27,9 +27,9 @@ namespace statServer
             }
 
 			
-				[DllImport("/home/drey/test/sock/socCpp1_lib/libigmpwork.so", CharSet = CharSet.Auto)]
+				[DllImport("/home/fa/socCpp1_lib/libigmpwork.so", CharSet = CharSet.Auto)]
 				static extern int  istartWork();
-				[DllImport("/home/drey/test/sock/socCpp1_lib/libigmpwork.so", CharSet = CharSet.Auto)]
+				[DllImport("/home/fa/socCpp1_lib/libigmpwork.so", CharSet = CharSet.Auto)]
 				static extern int  istopWork();
 
 			data = new DataBase("dataBase.db2");
